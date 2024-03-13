@@ -1,5 +1,4 @@
 import inputs
-from inputs import get_gamepad
 
 # 定义Xbox手柄按键代码
 button_codes = {
@@ -9,7 +8,7 @@ button_codes = {
     "BTN_WEST": 3,    # Y
     "BTN_TL": 4,      # LB
     "BTN_TR": 5,      # RB
-    "BTN_THUMBL": 6,  # 左摇杆按下
+    "BTN_THUMBL": 6,  # 左摇杆按下 
     "BTN_THUMBR": 7,  # 右摇杆按下
     "BTN_SELECT": 8,  # Select
     "BTN_START": 9,   # Start
@@ -22,16 +21,23 @@ button_codes = {
     "ABS_RZ": 16      # RT
 }
 
-# 主循环
+#主循环
+# def main():
+#     while True:
+#             events = inputs.get_gamepad()
+#             for event in events:
+#                 if event.ev_type == "Key" and event.code in button_codes:
+#                     button = event.code
+#                     value = event.state
+#                     print(event.ev_type, button, value)
+                    #print(f"Button {button} pressed. Corresponding number: {button_codes[button]}")
 def main():
     while True:
-        events = inputs.get_gamepad()
-        for event in events:
-            if event.ev_type == "Key" and event.code in button_codes:
-                button = event.code
-                value = event.state
-                if value == 1:
-                    print(f"Button {button} pressed. Corresponding number: {button_codes[button]}")
-
+        try:
+            events = inputs.get_gamepad()
+            for event in events:
+                print(event.ev_type, event.code, event.state)
+        except inputs.UnpluggedError:
+            print("No gamepad found.")
 if __name__ == "__main__":
     main()
